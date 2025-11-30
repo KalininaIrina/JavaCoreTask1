@@ -5,6 +5,8 @@ import com.task.array.exception.CustomArrayException;
 import com.task.array.service.ArrayCalculationService;
 import org.junit.jupiter.api.Test;
 
+import java.util.OptionalInt;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArrayCalculationServiceImplTest {
@@ -15,9 +17,11 @@ class ArrayCalculationServiceImplTest {
     void findMin_PositiveNumbers_CorrectValue() throws CustomArrayException {
         CustomArray customArray = new CustomArray(new int[]{10, 2, 5});
 
-        int actualMin = calculationService.findMin(customArray);
+        OptionalInt actualMin = calculationService.findMin(customArray);
 
-        assertEquals(2, actualMin, "Minimum should be 2");
+        assertTrue(actualMin.isPresent(), "Result should be present");
+
+        assertEquals(2, actualMin.getAsInt(), "Minimum should be 2");
     }
 
     @Test
@@ -25,9 +29,11 @@ class ArrayCalculationServiceImplTest {
 
         CustomArray customArray = new CustomArray(new int[]{-5, -1, -10});
 
-        int actualMax = calculationService.findMax(customArray);
+        OptionalInt actualMax = calculationService.findMax(customArray);
 
-        assertEquals(-1, actualMax);
+        assertTrue(actualMax.isPresent());
+
+        assertEquals(-1, actualMax.getAsInt());
     }
 
     @Test

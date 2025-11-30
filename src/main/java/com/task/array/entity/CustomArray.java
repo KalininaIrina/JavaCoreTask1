@@ -1,12 +1,13 @@
 package com.task.array.entity;
 import java.util.Arrays;
+import java.util.StringJoiner;
 
 public class CustomArray {
 
     private int[] array;
 
     public CustomArray(int[] array){
-        this.array = array;
+        this.array = array.clone();
     }
 
     public int[] getArray() {
@@ -14,7 +15,7 @@ public class CustomArray {
     }
 
     public void setArray(int[] array) {
-        this.array = array;
+        this.array = array.clone();
     }
 
     @Override
@@ -39,9 +40,16 @@ public class CustomArray {
 
     @Override
     public String toString(){
-        return "CustomArray{" +
-                "array = " + Arrays.toString(array) +
-                "}";
+
+        StringBuilder sb = new StringBuilder("CustomArray{array=[");
+        for (int i = 0; i < array.length; i++){
+            sb.append(array[i]);
+            if(i < array.length - 1){
+                sb.append(", ");
+            }
+        }
+        sb.append("]}");
+        return sb.toString();
     }
 
 }

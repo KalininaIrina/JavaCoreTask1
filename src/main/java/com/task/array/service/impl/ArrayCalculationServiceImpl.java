@@ -6,12 +6,14 @@ import com.task.array.service.ArrayCalculationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.OptionalInt;
+
 public class ArrayCalculationServiceImpl implements ArrayCalculationService {
 
     private static final Logger logger = LogManager.getLogger(ArrayCalculationServiceImpl.class);
 
     @Override
-    public int findMin(CustomArray customArray) throws CustomArrayException {
+    public OptionalInt findMin(CustomArray customArray) throws CustomArrayException {
 
         checkArray(customArray);
 
@@ -25,11 +27,11 @@ public class ArrayCalculationServiceImpl implements ArrayCalculationService {
         }
 
         logger.info("Min value found: {}", min);
-        return min;
+        return OptionalInt.of(min);
     }
 
     @Override
-    public int findMax(CustomArray customArray) throws CustomArrayException {
+    public OptionalInt findMax(CustomArray customArray) throws CustomArrayException {
 
         checkArray(customArray);
 
@@ -43,7 +45,7 @@ public class ArrayCalculationServiceImpl implements ArrayCalculationService {
         }
 
         logger.info("Max value found: {}", max);
-        return max;
+        return OptionalInt.of(max);
     }
 
     @Override
