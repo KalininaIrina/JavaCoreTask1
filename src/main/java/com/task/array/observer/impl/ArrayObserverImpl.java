@@ -1,5 +1,6 @@
 package com.task.array.observer.impl;
 
+import com.task.array.exception.CustomArrayException;
 import com.task.array.observer.ArrayObserver;
 import com.task.array.entity.ArrayStatistics;
 import com.task.array.entity.CustomArray;
@@ -24,18 +25,24 @@ public class ArrayObserverImpl implements ArrayObserver {
 
         ArrayCalculationService service = new ArrayCalculationServiceImpl();
 
-        OptionalInt minOpt = service.findMin(customArray);
-        OptionalInt maxOpt = service.findMax(customArray);
-        int sum = service.calculateSum(customArray);
+        try {
 
-        int min = minOpt.orElse(0);
-        int max = maxOpt.orElse(0);
+            OptionalInt minOpt = service.findMin(customArray);
+            OptionalInt maxOpt = service.findMax(customArray);
+            int sum = service.calculateSum(customArray);
 
-        ArrayStatistics newStats = new ArrayStatistics(min, max, sum);
+            int min = minOpt.orElse(0);
+            int max = maxOpt.orElse(0);
 
-        ArrayWarehouse warehouse = ArrayWarehouse.getInstance();
-        warehouse.put(id, newStats);
+            ArrayStatistics newStats = new ArrayStatistics(min, max, sum);
 
-        logger.info("Warehouse updated for array ID: {}", id);
+            ArrayWarehouse warehouse = ArrayWarehouse.getInstance();
+            warehouse.put(id, newStats);
+
+            logger.info("Warehouse updated for array ID: {}", id);
+
+        } catch (CustomArrayException e) {
+            logger.error("Failed to update statistics for array ID: {}", id, e);
+        }
     }
 }
